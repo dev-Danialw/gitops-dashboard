@@ -353,21 +353,40 @@ function App() {
           }}>
             This Dashboard (Live Deployment)
           </p>
-          <a
-            href="http://35.193.222.155"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary"
-            style={{
-              display: 'inline-block',
-              background: '#2997ff',
-              fontSize: '18px',
-              fontWeight: '300',
-              padding: '14px 28px'
-            }}
-          >
-            Open Dashboard →
-          </a>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <a
+              href="https://console.cloud.google.com/net-services/loadbalancing/details/network/us-central1/a5af08df413a34eb795e20be3a5145f4?project=gitops-dashboard-1777657343"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                background: '#1d1d1f',
+                color: '#2997ff',
+                fontSize: '18px',
+                fontWeight: '300',
+                padding: '14px 28px',
+                borderRadius: '18px',
+                textDecoration: 'none'
+              }}
+            >
+              LoadBalancer Console →
+            </a>
+            <a
+              href="http://35.193.222.155"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+              style={{
+                display: 'inline-block',
+                background: '#2997ff',
+                fontSize: '18px',
+                fontWeight: '300',
+                padding: '14px 28px'
+              }}
+            >
+              Open Dashboard →
+            </a>
+          </div>
         </div>
       </section>
 
