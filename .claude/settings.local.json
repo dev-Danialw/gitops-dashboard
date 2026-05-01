@@ -55,7 +55,10 @@
       "Bash(git rm *)",
       "WebFetch(domain:getdesign.md)",
       "Bash(npx getdesign@latest add apple)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(gh --version)",
+      "Bash(git config *)",
+      "Bash(git commit *)"
     ]
   }
 }

@@ -1,0 +1,14 @@
+steps:
+  # Apply Kubernetes manifests to GKE cluster
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - 'manifests/'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=dashboard-cluster'
+
+# Build options
+options:
+  logging: CLOUD_LOGGING_ONLY
