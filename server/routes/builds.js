@@ -26,7 +26,9 @@ router.get('/', async (req, res) => {
       id: b.id,
       status: b.status,
       createTime: b.createTime?.seconds * 1000 || Date.now(),
-      triggerId: b.buildTriggerId
+      triggerId: b.buildTriggerId,
+      commitSha: b.source?.gitSource?.revision?.substring(0, 7) || b.substitutions?.SHORT_SHA,
+      repoName: b.source?.gitSource?.url?.match(/github\.com\/([^/]+)\/([^/]+)/)?.slice(1, 3) || ['dev-Danialw', 'gitops-dashboard']
     }))
 
     res.json(result)

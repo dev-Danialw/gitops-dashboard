@@ -1,4 +1,7 @@
 function BranchCard({ branches, loading }) {
+  const GITHUB_OWNER = 'dev-Danialw'
+  const GITHUB_REPO = 'gitops-dashboard'
+
   return (
     <div className="utility-card">
       <h2 className="caption-strong" style={{ marginBottom: '12px', color: 'var(--color-ink)' }}>
@@ -25,14 +28,22 @@ function BranchCard({ branches, loading }) {
               }}>
                 {branch.active ? '●' : '○'}
               </span>
-              <span style={{
-                fontFamily: 'var(--font-text)',
-                fontSize: '17px',
-                fontWeight: '400',
-                color: 'var(--color-ink)'
-              }}>
-                {branch.name}
-              </span>
+              <a
+                href={`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/tree/${branch.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: 'var(--font-text)',
+                  fontSize: '17px',
+                  fontWeight: '400',
+                  color: '#2997ff',
+                  textDecoration: 'none'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}
+              >
+                {branch.name} →
+              </a>
               {branch.isMain && (
                 <span style={{
                   marginLeft: '8px',

@@ -1,4 +1,8 @@
 function ImageCard({ images, loading }) {
+  const PROJECT_ID = 'gitops-dashboard-1777657343'
+  const REGION = 'us-central1'
+  const REPO = 'docker-images'
+
   function shortTag(tag) {
     return tag.substring(0, 7)
   }
@@ -20,15 +24,24 @@ function ImageCard({ images, loading }) {
               padding: '12px 0',
               borderBottom: '1px solid var(--color-divider)'
             }}>
-              <p style={{
-                fontFamily: 'var(--font-text)',
-                fontSize: '17px',
-                fontWeight: '600',
-                color: 'var(--color-ink)',
-                margin: 0
-              }}>
-                {image.name}
-              </p>
+              <a
+                href={`https://console.cloud.google.com/artifacts/docker/${PROJECT_ID}/${REGION}/${REPO}/${image.name}?project=${PROJECT_ID}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontFamily: 'var(--font-text)',
+                  fontSize: '17px',
+                  fontWeight: '600',
+                  color: '#2997ff',
+                  textDecoration: 'none',
+                  display: 'block',
+                  marginBottom: '8px'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}
+              >
+                {image.name} →
+              </a>
               <div style={{
                 display: 'flex',
                 gap: '8px',
@@ -36,15 +49,24 @@ function ImageCard({ images, loading }) {
                 flexWrap: 'wrap'
               }}>
                 {image.tags.slice(0, 5).map(tag => (
-                  <span key={tag} style={{
-                    padding: '4px 8px',
-                    background: 'var(--color-parchment)',
-                    borderRadius: '9999px',
-                    fontSize: '12px',
-                    color: 'var(--color-ink)'
-                  }}>
+                  <a
+                    key={tag}
+                    href={`https://console.cloud.google.com/artifacts/docker/${PROJECT_ID}/${REGION}/${REPO}/${image.name}/${tag}?project=${PROJECT_ID}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      padding: '4px 8px',
+                      background: 'var(--color-parchment)',
+                      borderRadius: '9999px',
+                      fontSize: '12px',
+                      color: '#2997ff',
+                      textDecoration: 'none'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = '#e8e8e8'}
+                    onMouseOut={(e) => e.currentTarget.style.background = 'var(--color-parchment)'}
+                  >
                     {tag === 'latest' ? 'latest' : shortTag(tag)}
-                  </span>
+                  </a>
                 ))}
               </div>
               {image.createTime && (

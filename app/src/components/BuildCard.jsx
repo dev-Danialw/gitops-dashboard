@@ -1,6 +1,14 @@
 function BuildCard({ builds, loading }) {
+  const PROJECT_ID = 'gitops-dashboard-1777657343'
+  const GITHUB_OWNER = 'dev-Danialw'
+  const GITHUB_REPO = 'gitops-dashboard'
+
   function formatDate(timestamp) {
     return new Date(timestamp).toLocaleString()
+  }
+
+  function shortId(id) {
+    return id.substring(0, 8)
   }
 
   return (
@@ -30,15 +38,44 @@ function BuildCard({ builds, loading }) {
                 {build.status === 'SUCCESS' ? '●' : '○'}
               </span>
               <div style={{ flex: 1 }}>
-                <p style={{
-                  fontFamily: 'var(--font-text)',
-                  fontSize: '17px',
-                  fontWeight: '600',
-                  color: 'var(--color-ink)',
-                  margin: 0
-                }}>
-                  {build.id}
-                </p>
+                <a
+                  href={`https://console.cloud.google.com/cloud-build/builds/${build.id}?project=${PROJECT_ID}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: 'var(--font-text)',
+                    fontSize: '17px',
+                    fontWeight: '600',
+                    color: '#2997ff',
+                    margin: 0,
+                    textDecoration: 'none',
+                    display: 'inline-block'
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                  onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}
+                >
+                  Build {shortId(build.id)} →
+                </a>
+                {build.commitSha && (
+                  <a
+                    href={`https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/commit/${build.commitSha}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontFamily: 'var(--font-text)',
+                      fontSize: '14px',
+                      fontWeight: '400',
+                      color: '#2997ff',
+                      marginLeft: '8px',
+                      textDecoration: 'none',
+                      display: 'inline-block'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseOut={(e) => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    Commit {build.commitSha} →
+                  </a>
+                )}
                 <p className="caption" style={{ margin: 0 }}>
                   {formatDate(build.createTime)}
                 </p>
