@@ -1,0 +1,36 @@
+# Sensitive files - DO NOT COMMIT
+sa-key.json
+*.pem
+*.key
+.env
+.env.local
+.env.*.local
+
+# Dependencies (all node_modules)
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+app/dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Claude settings
+.claude/
+
+# Lock files (optional - can commit if needed)
+# package-lock.json
+# yarn.lock
