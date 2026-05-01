@@ -18,7 +18,8 @@ steps:
 
   # Step 3: Update env-repo with new image tag
   - name: 'gcr.io/cloud-builders/git'
-    secretEnv: ['GITHUB_TOKEN']
+    secretEnv:
+      - 'GITHUB_TOKEN'
     entrypoint: 'bash'
     args:
       - '-c'
