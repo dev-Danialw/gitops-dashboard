@@ -23,15 +23,14 @@ steps:
       - '-c'
       - |
         apt-get update && apt-get install -y git
-        # Read token from mounted secret
-        TOKEN=$(cat /secrets/github-token)
-        if [ -z "$TOKEN" ]; then
-          echo "ERROR: Token not found"
+        # Token is available as environment variable GITHUB_TOKEN
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "ERROR: GITHUB_TOKEN not set"
           exit 1
         fi
-        echo "Token found, length: ${#TOKEN}"
+        echo "Token found, length: ${#GITHUB_TOKEN}"
         # Clone with token
-        git clone https://$TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
+        git clone https://$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
         cd env-config
         sed -i "s|image:.*dashboard.*|image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
         git config user.name "Cloud Build"
@@ -39,9 +38,7 @@ steps:
         git add manifests/deployment.yaml
         git commit -m "Update dashboard image to ${SHORT_SHA}"
         git push origin master
-    volumes:
-      - name: 'github-token'
-        path: '/secrets'
+    secretEnv: ['GITHUB_TOKEN']
 
 # Default substitutions
 substitutions:
@@ -54,7 +51,7 @@ substitutions:
 availableSecrets:
   secretManager:
     - versionName: projects/gitops-dashboard-1777657343/secrets/github-token/versions/latest
-      mountPath: '/secrets/github-token'
+      env: 'GITHUB_TOKEN'
 
 # Build options
 options:
