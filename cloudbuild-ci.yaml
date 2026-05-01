@@ -39,7 +39,7 @@ steps:
         git config user.email "cloudbuild@${PROJECT_ID}.iam.gserviceaccount.com"
         git add manifests/deployment.yaml
         git commit -m "Update dashboard image to ${SHORT_SHA}"
-        git push origin main
+        git push origin master
 
 # Default substitutions
 substitutions:
