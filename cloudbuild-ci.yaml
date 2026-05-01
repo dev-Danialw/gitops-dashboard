@@ -36,8 +36,8 @@ steps:
 substitutions:
   _REGION: 'us-central1'
   _REPO: 'docker-images'
-  _ENV_REPO_OWNER: 'YOUR_GITHUB_USERNAME'
-  _ENV_REPO_NAME: 'env-config'
+  _ENV_REPO_OWNER: 'dev-Danialw'
+  _ENV_REPO_NAME: 'gitops-dashboard-env'
 
 # Secrets (GitHub token for pushing to env-repo)
 availableSecrets:
