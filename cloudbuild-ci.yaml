@@ -24,6 +24,13 @@ steps:
     args:
       - '-c'
       - |
+        # Debug: Check if token is available
+        if [ -z "$$GITHUB_TOKEN" ]; then
+          echo "ERROR: GITHUB_TOKEN not set"
+          exit 1
+        fi
+        echo "Token length: $${#GITHUB_TOKEN}"
+        # Clone with token
         git clone https://$$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
         cd env-config
         sed -i "s|image:.*dashboard.*|image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
