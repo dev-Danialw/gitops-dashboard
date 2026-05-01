@@ -6,6 +6,8 @@ import ImageCard from './components/ImageCard'
 import { fetchBranches, fetchBuilds, fetchDeployments, fetchImages } from './api'
 import './index.css'
 
+const PROJECT_ID = 'gitops-dashboard-1777657343'
+
 function App() {
   const [branches, setBranches] = useState([])
   const [builds, setBuilds] = useState([])
@@ -45,9 +47,42 @@ function App() {
     return () => clearInterval(interval)
   }, [])
 
+  const consoleLinks = [
+    {
+      name: 'Cloud Build',
+      desc: 'CI/CD Triggers & Build History',
+      url: `https://console.cloud.google.com/cloud-build/triggers?project=${PROJECT_ID}`
+    },
+    {
+      name: 'GKE Cluster',
+      desc: 'Kubernetes Workloads & Services',
+      url: `https://console.cloud.google.com/kubernetes/workload?project=${PROJECT_ID}`
+    },
+    {
+      name: 'Artifact Registry',
+      desc: 'Container Images Repository',
+      url: `https://console.cloud.google.com/artifacts?project=${PROJECT_ID}`
+    },
+    {
+      name: 'IAM & Admin',
+      desc: 'Service Accounts & Permissions',
+      url: `https://console.cloud.google.com/iam-admin/serviceaccounts?project=${PROJECT_ID}`
+    },
+    {
+      name: 'Secret Manager',
+      desc: 'GitHub Token & Credentials',
+      url: `https://console.cloud.google.com/security/secret-manager?project=${PROJECT_ID}`
+    },
+    {
+      name: 'Compute Engine',
+      desc: 'GKE Nodes & VMs',
+      url: `https://console.cloud.google.com/compute?project=${PROJECT_ID}`
+    }
+  ]
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--color-parchment)' }}>
-      {/* Hero Section - Clean Apple Style */}
+      {/* Hero Section */}
       <section className="tile-light" style={{
         textAlign: 'center',
         paddingTop: '100px',
@@ -124,7 +159,7 @@ function App() {
         )}
       </section>
 
-      {/* Stats Overview - Apple Utility Cards */}
+      {/* Stats Overview */}
       <section style={{
         background: 'var(--color-parchment)',
         padding: '48px 24px'
@@ -194,7 +229,7 @@ function App() {
         </div>
       </section>
 
-      {/* Dashboard Grid - Apple Cards */}
+      {/* Dashboard Grid */}
       <section style={{
         background: 'var(--color-parchment)',
         padding: '48px 24px 80px'
@@ -224,26 +259,27 @@ function App() {
         </div>
       </section>
 
-      {/* Info Section */}
+      {/* Console Links Section - For Presentation */}
       <section style={{
         background: 'var(--color-tile-dark)',
-        padding: '80px 24px',
-        textAlign: 'center'
+        padding: '80px 24px'
       }}>
         <h2 style={{
           fontFamily: 'var(--font-display)',
           fontSize: '40px',
           fontWeight: '600',
-          color: '#ffffff',
-          marginBottom: '16px'
+          textAlign: 'center',
+          marginBottom: '16px',
+          color: '#ffffff'
         }}>
-          Built for Cloud-Native Workflows
+          Google Cloud Console Links
         </h2>
 
         <p style={{
           fontFamily: 'var(--font-text)',
           fontSize: '17px',
           fontWeight: '400',
+          textAlign: 'center',
           lineHeight: '1.47',
           color: 'var(--color-body-muted)',
           marginBottom: '48px',
@@ -251,28 +287,219 @@ function App() {
           marginLeft: 'auto',
           marginRight: 'auto'
         }}>
-          This dashboard demonstrates a complete GitOps pipeline architecture using
-          Google Cloud Build, Artifact Registry, and GKE for automated deployments.
+          Quick access to all project resources for demonstration and presentation.
+          Click any link to view the actual infrastructure in Google Cloud Console.
         </p>
 
         <div style={{
+          maxWidth: '900px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '16px'
+        }}>
+          {consoleLinks.map((link, idx) => (
+            <a
+              key={idx}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                background: '#1d1d1f',
+                borderRadius: '18px',
+                padding: '24px',
+                display: 'block',
+                textDecoration: 'none',
+                transition: 'transform 0.15s ease',
+                border: '1px solid #333'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <h3 style={{
+                fontFamily: 'var(--font-text)',
+                fontSize: '21px',
+                fontWeight: '600',
+                color: '#2997ff',
+                marginBottom: '8px',
+                marginTop: 0
+              }}>
+                {link.name} →
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-text)',
+                fontSize: '14px',
+                fontWeight: '400',
+                color: '#888',
+                margin: 0
+              }}>
+                {link.desc}
+              </p>
+            </a>
+          ))}
+        </div>
+
+        {/* Dashboard Live Link */}
+        <div style={{
+          marginTop: '32px',
+          textAlign: 'center'
+        }}>
+          <p style={{
+            fontFamily: 'var(--font-text)',
+            fontSize: '17px',
+            fontWeight: '400',
+            color: '#888',
+            marginBottom: '16px'
+          }}>
+            This Dashboard (Live Deployment)
+          </p>
+          <a
+            href="http://35.193.222.155"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary"
+            style={{
+              display: 'inline-block',
+              background: '#2997ff',
+              fontSize: '18px',
+              fontWeight: '300',
+              padding: '14px 28px'
+            }}
+          >
+            Open Dashboard →
+          </a>
+        </div>
+      </section>
+
+      {/* Architecture Info */}
+      <section className="tile-light" style={{ padding: '80px 24px' }}>
+        <h2 style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: '40px',
+          fontWeight: '600',
+          textAlign: 'center',
+          marginBottom: '32px',
+          color: 'var(--color-ink)'
+        }}>
+          Project Architecture
+        </h2>
+
+        <div style={{
+          maxWidth: '800px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '16px',
+          marginBottom: '48px'
+        }}>
+          <div style={{
+            background: 'var(--color-canvas)',
+            borderRadius: '18px',
+            padding: '20px',
+            textAlign: 'center',
+            border: '1px solid var(--color-hairline)'
+          }}>
+            <p style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '34px',
+              fontWeight: '600',
+              color: 'var(--color-ink)',
+              margin: 0
+            }}>2</p>
+            <p className="caption">GitHub Repositories</p>
+          </div>
+
+          <div style={{
+            background: 'var(--color-canvas)',
+            borderRadius: '18px',
+            padding: '20px',
+            textAlign: 'center',
+            border: '1px solid var(--color-hairline)'
+          }}>
+            <p style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '34px',
+              fontWeight: '600',
+              color: 'var(--color-ink)',
+              margin: 0
+            }}>2</p>
+            <p className="caption">Cloud Build Triggers</p>
+          </div>
+
+          <div style={{
+            background: 'var(--color-canvas)',
+            borderRadius: '18px',
+            padding: '20px',
+            textAlign: 'center',
+            border: '1px solid var(--color-hairline)'
+          }}>
+            <p style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '34px',
+              fontWeight: '600',
+              color: 'var(--color-ink)',
+              margin: 0
+            }}>1</p>
+            <p className="caption">GKE Cluster</p>
+          </div>
+
+          <div style={{
+            background: 'var(--color-canvas)',
+            borderRadius: '18px',
+            padding: '20px',
+            textAlign: 'center',
+            border: '1px solid var(--color-hairline)'
+          }}>
+            <p style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: '34px',
+              fontWeight: '600',
+              color: 'var(--color-ink)',
+              margin: 0
+            }}>1</p>
+            <p className="caption">Service Account</p>
+          </div>
+        </div>
+
+        <div style={{
+          textAlign: 'center',
           display: 'flex',
           gap: '16px',
           justifyContent: 'center',
           flexWrap: 'wrap'
         }}>
-          <span className="btn-secondary" style={{ color: '#2997ff', borderColor: '#2997ff' }}>
-            Cloud Build
-          </span>
-          <span className="btn-secondary" style={{ color: '#2997ff', borderColor: '#2997ff' }}>
-            GKE Cluster
-          </span>
-          <span className="btn-secondary" style={{ color: '#2997ff', borderColor: '#2997ff' }}>
-            Artifact Registry
-          </span>
-          <span className="btn-secondary" style={{ color: '#2997ff', borderColor: '#2997ff' }}>
-            GitOps
-          </span>
+          <span style={{
+            padding: '11px 22px',
+            background: 'var(--color-parchment)',
+            borderRadius: '9999px',
+            fontSize: '17px',
+            fontWeight: '400',
+            color: 'var(--color-ink)'
+          }}>React + Vite</span>
+          <span style={{
+            padding: '11px 22px',
+            background: 'var(--color-parchment)',
+            borderRadius: '9999px',
+            fontSize: '17px',
+            fontWeight: '400',
+            color: 'var(--color-ink)'
+          }}>Express.js</span>
+          <span style={{
+            padding: '11px 22px',
+            background: 'var(--color-parchment)',
+            borderRadius: '9999px',
+            fontSize: '17px',
+            fontWeight: '400',
+            color: 'var(--color-ink)'
+          }}>Docker</span>
+          <span style={{
+            padding: '11px 22px',
+            background: 'var(--color-parchment)',
+            borderRadius: '9999px',
+            fontSize: '17px',
+            fontWeight: '400',
+            color: 'var(--color-ink)'
+          }}>Kubernetes</span>
         </div>
       </section>
 
@@ -290,7 +517,7 @@ function App() {
           color: 'var(--color-body-muted)',
           marginBottom: '8px'
         }}>
-          GitOps Pipeline Dashboard · Cloud Computing Project
+          GitOps Pipeline Dashboard · Cloud Computing Project · CS 833
         </p>
         <p style={{
           fontFamily: 'var(--font-text)',
@@ -299,6 +526,15 @@ function App() {
           color: 'var(--color-body-muted)'
         }}>
           Auto-refresh every 30 seconds · Powered by Google Cloud Platform
+        </p>
+        <p style={{
+          fontFamily: 'var(--font-text)',
+          fontSize: '12px',
+          fontWeight: '600',
+          color: 'var(--color-body-muted)',
+          marginTop: '12px'
+        }}>
+          Project ID: {PROJECT_ID}
         </p>
       </footer>
     </div>
