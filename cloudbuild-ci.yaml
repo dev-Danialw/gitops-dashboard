@@ -17,13 +17,14 @@ steps:
       - '${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard'
 
   # Step 3: Update env-repo with new image tag
-  - name: 'gcr.io/cloud-builders/git'
+  - name: 'ubuntu'
     secretEnv:
       - 'GITHUB_TOKEN'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
+        apt-get update && apt-get install -y git
         # Debug: Check if token is available
         if [ -z "$$GITHUB_TOKEN" ]; then
           echo "ERROR: GITHUB_TOKEN not set"
