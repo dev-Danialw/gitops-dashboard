@@ -24,13 +24,13 @@ steps:
       - |
         apt-get update && apt-get install -y git
         # Token is available as environment variable GITHUB_TOKEN
-        if [ -z "$GITHUB_TOKEN" ]; then
+        if [ -z "$$GITHUB_TOKEN" ]; then
           echo "ERROR: GITHUB_TOKEN not set"
           exit 1
         fi
-        echo "Token found, length: ${#GITHUB_TOKEN}"
+        echo "Token found, length: $${#GITHUB_TOKEN}"
         # Clone with token
-        git clone https://$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
+        git clone https://$$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
         cd env-config
         sed -i "s|image:.*dashboard.*|image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
         git config user.name "Cloud Build"
