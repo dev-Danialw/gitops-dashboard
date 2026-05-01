@@ -28,7 +28,7 @@ steps:
         # Clone env-repo
         git clone https://github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
         cd env-config
-        sed -i "s|image:.*dashboard.*|image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
+        sed -i "s|.*image:.*dashboard.*|        image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
         git config user.name "Cloud Build"
         git config user.email "cloudbuild@${PROJECT_ID}.iam.gserviceaccount.com"
         git add manifests/deployment.yaml
