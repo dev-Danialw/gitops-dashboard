@@ -24,7 +24,7 @@ steps:
     args:
       - '-c'
       - |
-        git clone https://$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
+        git clone https://$$GITHUB_TOKEN@github.com/${_ENV_REPO_OWNER}/${_ENV_REPO_NAME}.git env-config
         cd env-config
         sed -i "s|image:.*dashboard.*|image: ${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPO}/dashboard:${SHORT_SHA}|" manifests/deployment.yaml
         git config user.name "Cloud Build"
