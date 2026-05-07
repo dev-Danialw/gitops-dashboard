@@ -98,7 +98,7 @@ function App() {
           color: 'var(--color-ink)',
           marginBottom: '16px'
         }}>
-          GitOps Pipeline Dashboard
+          GitOps Pipeline Demo
         </h1>
 
         <p style={{
